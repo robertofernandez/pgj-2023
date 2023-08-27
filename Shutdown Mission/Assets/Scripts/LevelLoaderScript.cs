@@ -17,6 +17,10 @@ public class LevelLoaderScript : MonoBehaviour
     {
         StartCoroutine(LoadLevel(0));
     }
+    public void LoadIndexScene(int index)
+    {
+        StartCoroutine(LoadLevel(index));
+    }
 
     IEnumerator LoadLevel(int levelIndex)
     {
