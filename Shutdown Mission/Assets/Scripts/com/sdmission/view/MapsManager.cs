@@ -11,6 +11,9 @@ namespace com.sdmission.view
     {
 		public GameObject wallTile;
 		public GameObject baseTile;
+		public GameObject battery;
+		public GameObject eve;
+		public GameObject blackDrone;
 		
 		public GameMap logicMap;
 		
@@ -23,7 +26,7 @@ namespace com.sdmission.view
         {
             Debug.Log("View started");
 			
-			string filePath = Application.dataPath + "/Levels/level1.txt";
+			string filePath = Application.dataPath + "/Levels/level2.txt";
 			Debug.Log("reading " + filePath);
 			
 			float currentX = 0f;
@@ -41,8 +44,15 @@ namespace com.sdmission.view
 						char c = line[i];
 						if('1' == c) {
 							instantiateWall(currentX, currentZ);
-						} else if('0' == c) {
+						} else{
 							instantiateBase(currentX, currentZ);
+							if('2' == c) {
+								instantiateBattery(currentX, currentZ);
+							} else if('3' == c) {
+								instantiateEve(currentX, currentZ);
+							} else if('4' == c) {
+								instantiateBlackDrone(currentX, currentZ);
+							}
 						}
 						currentX++;
 					}
@@ -61,8 +71,11 @@ namespace com.sdmission.view
 						char c = line[i];
 						if('1' == c) {
 							matrix[indexX, 0, indexZ] = new GameMapTile("_" + indexX + "_" + indexZ, GameMap.FENCE);
-						} else if('0' == c) {
+						} else {
 							matrix[indexX, 0, indexZ] = new GameMapTile("_" + indexX + "_" + indexZ, GameMap.BASE);
+							if('2' == c) {
+								
+							}
 						}
 						indexX++;
 					}
@@ -87,11 +100,29 @@ namespace com.sdmission.view
 			Quaternion rotation = Quaternion.identity;
 			GameObject instantiatedPrefab = Instantiate(wallTile, position, rotation);
 		}
+
+		public void instantiateEve(float x, float z) {
+			Vector3 position = new Vector3(x, 0f, z);
+			Quaternion rotation = Quaternion.identity;
+			GameObject instantiatedPrefab = Instantiate(eve, position, rotation);
+		}
 		
+		public void instantiateBlackDrone(float x, float z) {
+			Vector3 position = new Vector3(x, 0f, z);
+			Quaternion rotation = Quaternion.identity;
+			GameObject instantiatedPrefab = Instantiate(blackDrone, position, rotation);
+		}
+
 		public void instantiateBase(float x, float z) {
 			Vector3 position = new Vector3(x, -0.5f, z);
 			Quaternion rotation = Quaternion.identity;
 			GameObject instantiatedPrefab = Instantiate(baseTile, position, rotation);
+		}
+		
+		public void instantiateBattery(float x, float z) {
+			Vector3 position = new Vector3(x, 0f, z);
+			Quaternion rotation = Quaternion.identity;
+			GameObject instantiatedPrefab = Instantiate(battery, position, rotation);
 		}
     }
 }
