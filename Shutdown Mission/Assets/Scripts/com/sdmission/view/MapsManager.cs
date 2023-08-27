@@ -28,6 +28,8 @@ namespace com.sdmission.view
 		
 		public List<MovementCoordinator> movementCoordinators;
 		
+		public InputMovementDecider eveMovementDecider;
+		
         private void Awake()
         {
             Debug.Log("View initialized");
@@ -131,6 +133,11 @@ namespace com.sdmission.view
 			foreach(MovementCoordinator coordinator in movementCoordinators) {
 			    coordinator.OnUpdate();
 			}
+			
+			float currentMovementX = Input.GetAxis("Horizontal");
+			float currentMovementY = Input.GetAxis("Vertical");
+
+			eveMovementDecider.updateDirections(currentMovementX, currentMovementY);
 		}
 		
 		public void instantiateWall(float x, float z) {
@@ -146,6 +153,10 @@ namespace com.sdmission.view
 			eveInstance = instantiatedPrefab;
 			eveMovementManager = new MovementManager(eveInstance, 0.05f);
 			eveMovementManager.SetInitialTilePosition(new Coordinates<int>((int)x, (int)z, 0));
+
+			eveMovementDecider = new InputMovementDecider(logicMap, eveMovementManager);
+			MovementCoordinator coordinator = new MovementCoordinator(eveMovementDecider, eveMovementManager);
+			movementCoordinators.Add(coordinator);
 		}
 		
 		public void instantiateBlackDrone(float x, float z) {
