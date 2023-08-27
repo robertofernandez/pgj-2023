@@ -28,6 +28,8 @@ namespace com.sdmission.view
 		
 		public List<MovementCoordinator> movementCoordinators;
 		
+		public List<ChaserDroneMovementDecider> chaserDeciders;
+		
 		public InputMovementDecider eveMovementDecider;
 		
         private void Awake()
@@ -43,6 +45,7 @@ namespace com.sdmission.view
 			
 			droneMovementManagers = new List<MovementManager>();
 			movementCoordinators = new List<MovementCoordinator>();
+			chaserDeciders = new List<ChaserDroneMovementDecider>();
 
 			string filePath = Application.dataPath + "/Levels/level2.txt";
 			Debug.Log("reading " + filePath);
@@ -138,6 +141,18 @@ namespace com.sdmission.view
 			float currentMovementY = Input.GetAxis("Vertical");
 
 			eveMovementDecider.updateDirections(currentMovementX, currentMovementY);
+			
+			float distance = Mathf.Abs(highDroneMovementManager.currentTilePosition.x - eveMovementManager.currentTilePosition.x) + 
+							 Mathf.Abs(highDroneMovementManager.currentTilePosition.z - eveMovementManager.currentTilePosition.z);
+			if(distance < 3) {
+				foreach(ChaserDroneMovementDecider cdecider in chaserDeciders) {
+					cdecider.updateEnemyPosition(eveMovementManager.currentTilePosition);
+				}
+			} else {
+				foreach(ChaserDroneMovementDecider cdecider in chaserDeciders) {
+					cdecider.updateEnemyPosition(null);
+				}				
+			}
 		}
 		
 		public void instantiateWall(float x, float z) {
@@ -166,7 +181,8 @@ namespace com.sdmission.view
 			MovementManager droneMovementManager = new MovementManager(instantiatedPrefab, 0.05f);
 			droneMovementManager.SetInitialTilePosition(new Coordinates<int>((int)x, (int)z, 0));
 			droneMovementManagers.Add(droneMovementManager);
-			RandomDroneMovementDecider decider = new RandomDroneMovementDecider(logicMap, droneMovementManager);
+			ChaserDroneMovementDecider decider = new ChaserDroneMovementDecider(logicMap, droneMovementManager);
+			chaserDeciders.Add(decider);
 			MovementCoordinator coordinator = new MovementCoordinator(decider, droneMovementManager);
 			movementCoordinators.Add(coordinator);
 		}
@@ -190,7 +206,8 @@ namespace com.sdmission.view
 			MovementManager droneMovementManager = new MovementManager(instantiatedPrefab, 0.05f);
 			droneMovementManager.SetInitialTilePosition(new Coordinates<int>((int)x, (int)z, 0));
 			droneMovementManagers.Add(droneMovementManager);
-			RandomDroneMovementDecider decider = new RandomDroneMovementDecider(logicMap, droneMovementManager);
+			ChaserDroneMovementDecider decider = new ChaserDroneMovementDecider(logicMap, droneMovementManager);
+			chaserDeciders.Add(decider);
 			MovementCoordinator coordinator = new MovementCoordinator(decider, droneMovementManager);
 			movementCoordinators.Add(coordinator);
 		}
@@ -201,7 +218,8 @@ namespace com.sdmission.view
 			GameObject instantiatedPrefab = Instantiate(highDrone, position, rotation);
 			highDroneMovementManager = new MovementManager(instantiatedPrefab, 0.05f);
 			highDroneMovementManager.SetInitialTilePosition(new Coordinates<int>((int)x, (int)z, 0));
-			RandomDroneMovementDecider decider = new RandomDroneMovementDecider(logicMap, highDroneMovementManager);
+			ChaserDroneMovementDecider decider = new ChaserDroneMovementDecider(logicMap, highDroneMovementManager);
+			chaserDeciders.Add(decider);
 			MovementCoordinator coordinator = new MovementCoordinator(decider, highDroneMovementManager);
 			movementCoordinators.Add(coordinator);
 		}
