@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 using System.IO;
 using com.sdmission.logic.model;
+using com.sdmission.utils;
+using com.sdmission.logic.movement;
 
 namespace com.sdmission.view
 {
@@ -16,6 +18,9 @@ namespace com.sdmission.view
 		public GameObject blackDrone;
 		
 		public GameMap logicMap;
+		
+		public GameObject eveInstance;
+		public MovementManager eveMovementManager;
 		
         private void Awake()
         {
@@ -87,12 +92,18 @@ namespace com.sdmission.view
 			{
 				Debug.LogError("No level file.");
 			}
-    			
+			
+			//FIXME remove example
+    		eveMovementManager.OnPositionConfirmed(new Coordinates<int>(18,8,0));
+			eveMovementManager.OnPositionConfirmed(new Coordinates<int>(17,8,0));
+			eveMovementManager.OnPositionConfirmed(new Coordinates<int>(16,8,0));
+			eveMovementManager.OnPositionConfirmed(new Coordinates<int>(17,8,0));
+
 		}
 		
-		private void Update()
+		private void FixedUpdate()
         {
-		
+			eveMovementManager.OnTimeTick();
 		}
 		
 		public void instantiateWall(float x, float z) {
@@ -105,6 +116,9 @@ namespace com.sdmission.view
 			Vector3 position = new Vector3(x, 0f, z);
 			Quaternion rotation = Quaternion.identity;
 			GameObject instantiatedPrefab = Instantiate(eve, position, rotation);
+			eveInstance = instantiatedPrefab;
+			eveMovementManager = new MovementManager(eveInstance, 0.05f);
+			eveMovementManager.SetInitialTilePosition(new Coordinates<int>((int)x, (int)z, 0));
 		}
 		
 		public void instantiateBlackDrone(float x, float z) {
