@@ -180,7 +180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level 1
+  m_text: Mission 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 543abf75b276eb34685be9945a1c9123, type: 2}
   m_sharedMaterial: {fileID: 1457840979174810940, guid: 543abf75b276eb34685be9945a1c9123, type: 2}
@@ -1030,7 +1030,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Dificultad
+  m_text: Choose Mission
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 543abf75b276eb34685be9945a1c9123, type: 2}
   m_sharedMaterial: {fileID: 1457840979174810940, guid: 543abf75b276eb34685be9945a1c9123, type: 2}
@@ -1313,7 +1313,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level 2
+  m_text: Mission 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 543abf75b276eb34685be9945a1c9123, type: 2}
   m_sharedMaterial: {fileID: 1457840979174810940, guid: 543abf75b276eb34685be9945a1c9123, type: 2}
@@ -2065,7 +2065,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: af4ea18dbb1fa7f41910592a32da5f86, type: 3}
+  m_audioClip: {fileID: 8300000, guid: eb7acfe41df5ba541be14101b6efb0e0, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2610,7 +2610,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "M\xFAsica y SFX\nNico\nMai\nMaruchan"
+  m_text: "M\xFAsica y SFX\nNicol\xE1s Arana\nMai\nMaruchan"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 543abf75b276eb34685be9945a1c9123, type: 2}
   m_sharedMaterial: {fileID: 1457840979174810940, guid: 543abf75b276eb34685be9945a1c9123, type: 2}
@@ -3232,8 +3232,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 750, y: -800}
-  m_SizeDelta: {x: 100, y: 73.1}
+  m_AnchoredPosition: {x: 800, y: -800}
+  m_SizeDelta: {x: 177.75, y: 103.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1739788915
 MonoBehaviour:
@@ -3589,10 +3589,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1739788914}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1877946446
 MonoBehaviour:
@@ -3607,7 +3607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.41037738, g: 1, b: 0.9387081, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
