@@ -1,0 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class LevelLoaderScript : MonoBehaviour
+{
+    
+   public Animator transision;
+   public float transisionTime = 1f;
+
+    public void LoadNextScene()
+    {
+        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
+    }
+    public void LoadFirstScene()
+    {
+        StartCoroutine(LoadLevel(0));
+    }
+
+    IEnumerator LoadLevel(int levelIndex)
+    {
+         transision.SetTrigger("Start");
+         yield return new WaitForSeconds(transisionTime);
+         SceneManager.LoadScene(levelIndex);
+    }
+}
