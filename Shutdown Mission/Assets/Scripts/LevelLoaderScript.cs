@@ -25,7 +25,10 @@ public class LevelLoaderScript : MonoBehaviour
     void Update()
     {
         if(Input.GetButtonDown("Cancel")){
-            LoadFirstScene();
+            if (SceneManager.GetActiveScene().buildIndex != 0)
+            {
+                LoadFirstScene();
+            }
         }
     }
     IEnumerator LoadLevel(int levelIndex)
