@@ -26,6 +26,8 @@ namespace com.sdmission.view
 		public MovementManager highDroneMovementManager;
 		public List<MovementManager> droneMovementManagers;
 		
+		public List<MovementCoordinator> movementCoordinators;
+		
         private void Awake()
         {
             Debug.Log("View initialized");
@@ -35,7 +37,10 @@ namespace com.sdmission.view
         {
             Debug.Log("View started");
 			
+			logicMap = new GameMap();
+			
 			droneMovementManagers = new List<MovementManager>();
+			movementCoordinators = new List<MovementCoordinator>();
 
 			string filePath = Application.dataPath + "/Levels/level2.txt";
 			Debug.Log("reading " + filePath);
@@ -96,7 +101,8 @@ namespace com.sdmission.view
 					}
 					indexZ++;
 				}
-				logicMap = new GameMap(matrix);
+				//logicMap = new GameMap(matrix);
+				logicMap.InitMap(matrix);
 			}
 			else
 			{
@@ -104,13 +110,13 @@ namespace com.sdmission.view
 			}
 			
 			//FIXME remove example
-    		eveMovementManager.OnPositionConfirmed(new Coordinates<int>(18,8,0));
-			eveMovementManager.OnPositionConfirmed(new Coordinates<int>(17,8,0));
-			eveMovementManager.OnPositionConfirmed(new Coordinates<int>(16,8,0));
-			eveMovementManager.OnPositionConfirmed(new Coordinates<int>(17,8,0));
+    		//eveMovementManager.OnPositionConfirmed(new Coordinates<int>(18,8,0));
+			//eveMovementManager.OnPositionConfirmed(new Coordinates<int>(17,8,0));
+			//eveMovementManager.OnPositionConfirmed(new Coordinates<int>(16,8,0));
+			//eveMovementManager.OnPositionConfirmed(new Coordinates<int>(17,8,0));
 			
-			highDroneMovementManager.OnPositionConfirmed(new Coordinates<int>(16,9,0));
-			droneMovementManagers[0].OnPositionConfirmed(new Coordinates<int>(12,3,0));
+			//highDroneMovementManager.OnPositionConfirmed(new Coordinates<int>(16,9,0));
+			//droneMovementManagers[0].OnPositionConfirmed(new Coordinates<int>(12,3,0));
 
 		}
 		
@@ -120,6 +126,10 @@ namespace com.sdmission.view
 			highDroneMovementManager.OnTimeTick();
 			foreach(MovementManager manager in droneMovementManagers) {
 			    manager.OnTimeTick();
+			}
+
+			foreach(MovementCoordinator coordinator in movementCoordinators) {
+			    coordinator.OnUpdate();
 			}
 		}
 		
@@ -145,6 +155,9 @@ namespace com.sdmission.view
 			MovementManager droneMovementManager = new MovementManager(instantiatedPrefab, 0.05f);
 			droneMovementManager.SetInitialTilePosition(new Coordinates<int>((int)x, (int)z, 0));
 			droneMovementManagers.Add(droneMovementManager);
+			RandomDroneMovementDecider decider = new RandomDroneMovementDecider(logicMap, droneMovementManager);
+			MovementCoordinator coordinator = new MovementCoordinator(decider, droneMovementManager);
+			movementCoordinators.Add(coordinator);
 		}
 
 		public void instantiateBase(float x, float z) {
@@ -166,6 +179,9 @@ namespace com.sdmission.view
 			MovementManager droneMovementManager = new MovementManager(instantiatedPrefab, 0.05f);
 			droneMovementManager.SetInitialTilePosition(new Coordinates<int>((int)x, (int)z, 0));
 			droneMovementManagers.Add(droneMovementManager);
+			RandomDroneMovementDecider decider = new RandomDroneMovementDecider(logicMap, droneMovementManager);
+			MovementCoordinator coordinator = new MovementCoordinator(decider, droneMovementManager);
+			movementCoordinators.Add(coordinator);
 		}
 		
 		public void instantiateHighDrone(float x, float z) {
@@ -174,6 +190,9 @@ namespace com.sdmission.view
 			GameObject instantiatedPrefab = Instantiate(highDrone, position, rotation);
 			highDroneMovementManager = new MovementManager(instantiatedPrefab, 0.05f);
 			highDroneMovementManager.SetInitialTilePosition(new Coordinates<int>((int)x, (int)z, 0));
+			RandomDroneMovementDecider decider = new RandomDroneMovementDecider(logicMap, highDroneMovementManager);
+			MovementCoordinator coordinator = new MovementCoordinator(decider, highDroneMovementManager);
+			movementCoordinators.Add(coordinator);
 		}
     }
 }

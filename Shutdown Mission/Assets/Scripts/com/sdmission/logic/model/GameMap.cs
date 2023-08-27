@@ -14,6 +14,16 @@ namespace com.sdmission.logic.model
         public GameMapTile[,,] matrix;
         private int sizeX;
         private int sizeZ;
+		
+		public GameMap(){
+		}
+		
+		public void InitMap(GameMapTile[,,] matrix)
+        {
+            this.matrix = matrix;
+            this.sizeX = matrix.GetLength(0);
+            this.sizeZ = matrix.GetLength(2);
+        }
 
         public GameMap(GameMapTile[,,] matrix)
         {

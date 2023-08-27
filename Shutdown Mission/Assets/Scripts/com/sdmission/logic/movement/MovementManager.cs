@@ -17,16 +17,18 @@ namespace com.sdmission.logic.movement
         private Coordinates<float> currentPosition;
         private int currentDirection;
         private Queue<Coordinates<int>> futureTilePositions;
-        private Coordinates<int> currentTilePosition;
+        public Coordinates<int> currentTilePosition;
         private Coordinates<int> nextTilePosition;
         //private float speedMultiplier = 1.2f;
         private bool hasReachedTarget;
         private float objectSpeed;
+		private float speed;
 		
 		public MovementManager(GameObject gameObject, float speed)
         {
 			this.gameObject = gameObject;
 			this.objectSpeed = speed;
+			this.speed = speed;
 			hasReachedTarget = true;
 			futureTilePositions = new Queue<Coordinates<int>>();
         }
@@ -46,6 +48,15 @@ namespace com.sdmission.logic.movement
             //var bombsInTile:Array = GameData.instance.positionManager.bombsInTile(newTilePosition);
             //updateSpeed();
         }
+
+		public bool isIddle() {
+			if(hasReachedTarget){
+                if(futureTilePositions.Count == 0) {
+					return true;
+				}
+			}
+			return false;
+		}
 
         public void OnTimeTick() 
         {
@@ -182,7 +193,7 @@ namespace com.sdmission.logic.movement
 		private float getStepSize() 
         {
             //return movableObject.getMaxSpeed() / FRAME_RATE * speedMultiplier ;
-			return objectSpeed;
+			return speed;
         }
     }
 }
