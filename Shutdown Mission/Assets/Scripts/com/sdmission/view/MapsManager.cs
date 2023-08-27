@@ -47,7 +47,7 @@ namespace com.sdmission.view
 			movementCoordinators = new List<MovementCoordinator>();
 			chaserDeciders = new List<ChaserDroneMovementDecider>();
 
-			string filePath = Application.dataPath + "/Levels/level2.txt";
+			string filePath = Application.dataPath + "/Levels/level3.txt";
 			Debug.Log("reading " + filePath);
 			
 			float currentX = 0f;
