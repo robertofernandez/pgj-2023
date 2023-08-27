@@ -8,6 +8,9 @@ namespace com.sdmission.logic.model
 {
     public class GameMap
     {
+		public const string FENCE = "fence";
+		public const string BASE = "base";
+
         public GameMapTile[,,] matrix;
         private int sizeX;
         private int sizeZ;
@@ -50,7 +53,7 @@ namespace com.sdmission.logic.model
         public bool solidElement(Coordinates<int> previousTile, Coordinates<int> requestedTile) {
             GameMapTile item = matrix[requestedTile.x, requestedTile.layer, requestedTile.z];
             if(item != null) {
-                if(item.blockType == "fence"){
+                if(item.blockType == FENCE){
                     return true;
                 } else {
                     return false;
