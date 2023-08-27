@@ -29,6 +29,7 @@ namespace com.sdmission.view
 		public List<MovementCoordinator> movementCoordinators;
 		
 		public List<ChaserDroneMovementDecider> chaserDeciders;
+		public ChaserHighDroneMovementDecider highDecider;
 		
 		public InputMovementDecider eveMovementDecider;
 		
@@ -151,10 +152,12 @@ namespace com.sdmission.view
 				foreach(ChaserDroneMovementDecider cdecider in chaserDeciders) {
 					cdecider.updateEnemyPosition(eveMovementManager.currentTilePosition);
 				}
+				highDecider.updateEnemyPosition(eveMovementManager.currentTilePosition);
 			} else {
 				foreach(ChaserDroneMovementDecider cdecider in chaserDeciders) {
 					cdecider.updateEnemyPosition(null);
-				}				
+				}
+                highDecider.updateEnemyPosition(null);
 			}
 			
 			string coordinatesDescribed = "" + eveMovementManager.currentTilePosition.x + "_" + eveMovementManager.currentTilePosition.z;
@@ -228,9 +231,9 @@ namespace com.sdmission.view
 			GameObject instantiatedPrefab = Instantiate(highDrone, position, rotation);
 			highDroneMovementManager = new MovementManager(instantiatedPrefab, 0.05f);
 			highDroneMovementManager.SetInitialTilePosition(new Coordinates<int>((int)x, (int)z, 0));
-			ChaserDroneMovementDecider decider = new ChaserDroneMovementDecider(logicMap, highDroneMovementManager);
-			chaserDeciders.Add(decider);
-			MovementCoordinator coordinator = new MovementCoordinator(decider, highDroneMovementManager);
+			highDecider = new ChaserHighDroneMovementDecider(logicMap, highDroneMovementManager);
+			//chaserDeciders.Add(decider);
+			MovementCoordinator coordinator = new MovementCoordinator(highDecider, highDroneMovementManager);
 			movementCoordinators.Add(coordinator);
 		}
     }
