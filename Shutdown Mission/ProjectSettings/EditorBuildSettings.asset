@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: a4d3d61ae1e4d7d47b489dd9b6ff2602
   - enabled: 1
+    path: Assets/Scenes/ExampleMapGenerator.unity
+    guid: f3322dd76f19d8849b699c1ae0a1b119
+  - enabled: 1
     path: Assets/Scenes/level1.unity
     guid: a22e7047942edde4b80b4ef08a51f1f4
   m_configObjects: {}

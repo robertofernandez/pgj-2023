@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3723812557094494255}
   - component: {fileID: 8551654078781324812}
+  - component: {fileID: 6623582445784742578}
   m_Layer: 0
   m_Name: Eve
   m_TagString: Untagged
@@ -54,6 +55,14 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!81 &6623582445784742578
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7112016661750822741}
+  m_Enabled: 1
 --- !u!1001 &8903004084687440567
 PrefabInstance:
   m_ObjectHideFlags: 0
