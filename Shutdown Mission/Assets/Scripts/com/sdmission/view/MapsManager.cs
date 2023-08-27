@@ -16,11 +16,15 @@ namespace com.sdmission.view
 		public GameObject battery;
 		public GameObject eve;
 		public GameObject blackDrone;
+		public GameObject highDrone;
+		public GameObject blueDrone;
 		
 		public GameMap logicMap;
 		
 		public GameObject eveInstance;
 		public MovementManager eveMovementManager;
+		public MovementManager highDroneMovementManager;
+		public List<MovementManager> droneMovementManagers;
 		
         private void Awake()
         {
@@ -31,6 +35,8 @@ namespace com.sdmission.view
         {
             Debug.Log("View started");
 			
+			droneMovementManagers = new List<MovementManager>();
+
 			string filePath = Application.dataPath + "/Levels/level2.txt";
 			Debug.Log("reading " + filePath);
 			
@@ -57,6 +63,10 @@ namespace com.sdmission.view
 								instantiateEve(currentX, currentZ);
 							} else if('4' == c) {
 								instantiateBlackDrone(currentX, currentZ);
+							} else if('5' == c) {
+								instantiateBlueDrone(currentX, currentZ);
+							} else if('6' == c) {
+								instantiateHighDrone(currentX, currentZ);
 							}
 						}
 						currentX++;
@@ -98,12 +108,19 @@ namespace com.sdmission.view
 			eveMovementManager.OnPositionConfirmed(new Coordinates<int>(17,8,0));
 			eveMovementManager.OnPositionConfirmed(new Coordinates<int>(16,8,0));
 			eveMovementManager.OnPositionConfirmed(new Coordinates<int>(17,8,0));
+			
+			highDroneMovementManager.OnPositionConfirmed(new Coordinates<int>(16,9,0));
+			droneMovementManagers[0].OnPositionConfirmed(new Coordinates<int>(12,3,0));
 
 		}
 		
 		private void FixedUpdate()
         {
 			eveMovementManager.OnTimeTick();
+			highDroneMovementManager.OnTimeTick();
+			foreach(MovementManager manager in droneMovementManagers) {
+			    manager.OnTimeTick();
+			}
 		}
 		
 		public void instantiateWall(float x, float z) {
@@ -125,6 +142,9 @@ namespace com.sdmission.view
 			Vector3 position = new Vector3(x, 0f, z);
 			Quaternion rotation = Quaternion.identity;
 			GameObject instantiatedPrefab = Instantiate(blackDrone, position, rotation);
+			MovementManager droneMovementManager = new MovementManager(instantiatedPrefab, 0.05f);
+			droneMovementManager.SetInitialTilePosition(new Coordinates<int>((int)x, (int)z, 0));
+			droneMovementManagers.Add(droneMovementManager);
 		}
 
 		public void instantiateBase(float x, float z) {
@@ -137,6 +157,23 @@ namespace com.sdmission.view
 			Vector3 position = new Vector3(x, 0f, z);
 			Quaternion rotation = Quaternion.identity;
 			GameObject instantiatedPrefab = Instantiate(battery, position, rotation);
+		}
+
+		public void instantiateBlueDrone(float x, float z) {
+			Vector3 position = new Vector3(x, 0f, z);
+			Quaternion rotation = Quaternion.identity;
+			GameObject instantiatedPrefab = Instantiate(blueDrone, position, rotation);
+			MovementManager droneMovementManager = new MovementManager(instantiatedPrefab, 0.05f);
+			droneMovementManager.SetInitialTilePosition(new Coordinates<int>((int)x, (int)z, 0));
+			droneMovementManagers.Add(droneMovementManager);
+		}
+		
+		public void instantiateHighDrone(float x, float z) {
+			Vector3 position = new Vector3(x, 0f, z);
+			Quaternion rotation = Quaternion.identity;
+			GameObject instantiatedPrefab = Instantiate(highDrone, position, rotation);
+			highDroneMovementManager = new MovementManager(instantiatedPrefab, 0.05f);
+			highDroneMovementManager.SetInitialTilePosition(new Coordinates<int>((int)x, (int)z, 0));
 		}
     }
 }

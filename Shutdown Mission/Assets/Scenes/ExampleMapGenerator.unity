@@ -249,6 +249,9 @@ MonoBehaviour:
   battery: {fileID: 84887388861173811, guid: 54db5593625b6b34891cf1023c359c93, type: 3}
   eve: {fileID: 7112016661750822741, guid: dc1a0d664d24a32498c0e978d36e5047, type: 3}
   blackDrone: {fileID: 8448971186967147511, guid: 36b6c711d1216c84cbca789f3d196a94, type: 3}
+  highDrone: {fileID: 5746507094687640243, guid: cc6e092cebb5e0749b14256f576694d9, type: 3}
+  blueDrone: {fileID: 5960449952556742530, guid: 0d1888306727b074b8779b5a2a08f125, type: 3}
+  eveInstance: {fileID: 0}
 --- !u!4 &1757788858
 Transform:
   m_ObjectHideFlags: 0
