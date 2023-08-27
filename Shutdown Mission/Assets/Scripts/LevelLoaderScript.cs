@@ -22,6 +22,12 @@ public class LevelLoaderScript : MonoBehaviour
         StartCoroutine(LoadLevel(index));
     }
 
+    void Update()
+    {
+        if(Input.GetButtonDown("Cancel")){
+            LoadFirstScene();
+        }
+    }
     IEnumerator LoadLevel(int levelIndex)
     {
          transision.SetTrigger("Start");
