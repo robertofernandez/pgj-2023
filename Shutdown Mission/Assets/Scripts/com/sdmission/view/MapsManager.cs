@@ -32,6 +32,8 @@ namespace com.sdmission.view
 		
 		public InputMovementDecider eveMovementDecider;
 		
+		private Dictionary < string, GameObject > registeredBateries;
+		
         private void Awake()
         {
             Debug.Log("View initialized");
@@ -42,12 +44,13 @@ namespace com.sdmission.view
             Debug.Log("View started");
 			
 			logicMap = new GameMap();
+			registeredBateries = new Dictionary < string, GameObject >();
 			
 			droneMovementManagers = new List<MovementManager>();
 			movementCoordinators = new List<MovementCoordinator>();
 			chaserDeciders = new List<ChaserDroneMovementDecider>();
 
-			string filePath = Application.dataPath + "/Levels/level2.txt";
+			string filePath = Application.dataPath + "/Levels/level3.txt";
 			Debug.Log("reading " + filePath);
 			
 			float currentX = 0f;
@@ -153,6 +156,12 @@ namespace com.sdmission.view
 					cdecider.updateEnemyPosition(null);
 				}				
 			}
+			
+			string coordinatesDescribed = "" + eveMovementManager.currentTilePosition.x + "_" + eveMovementManager.currentTilePosition.z;
+			if (registeredBateries.ContainsKey(coordinatesDescribed)) {
+			    Destroy(registeredBateries[coordinatesDescribed]);
+				registeredBateries.Remove(coordinatesDescribed);
+			}
 		}
 		
 		public void instantiateWall(float x, float z) {
@@ -197,6 +206,7 @@ namespace com.sdmission.view
 			Vector3 position = new Vector3(x, 0f, z);
 			Quaternion rotation = Quaternion.identity;
 			GameObject instantiatedPrefab = Instantiate(battery, position, rotation);
+			registeredBateries.Add("" + x + "_" + z, instantiatedPrefab);
 		}
 
 		public void instantiateBlueDrone(float x, float z) {
