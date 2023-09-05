@@ -19,6 +19,7 @@ namespace com.sdmission.view
 		public GameObject highDrone;
 		public GameObject blueDrone;
 		
+		public string levelName = "level3.txt";
 		public GameMap logicMap;
 		
 		public GameObject eveInstance;
@@ -51,7 +52,7 @@ namespace com.sdmission.view
 			movementCoordinators = new List<MovementCoordinator>();
 			chaserDeciders = new List<ChaserDroneMovementDecider>();
 
-			string filePath = Application.dataPath + "/Levels/level3.txt";
+			string filePath = Application.dataPath + "/Levels/" + levelName;
 			Debug.Log("reading " + filePath);
 			
 			float currentX = 0f;

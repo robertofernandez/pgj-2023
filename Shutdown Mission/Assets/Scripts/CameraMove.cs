@@ -10,6 +10,12 @@ public class CameraMove : MonoBehaviour
     public float sideShake = 0.15f;
     public float zoomShake = 0.02f;
 
+    void Start()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        this.transform.position = target.position;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
