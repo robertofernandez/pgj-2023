@@ -13,7 +13,7 @@ public class mazeGenerator : MonoBehaviour
 
     //private GameMapTile[,,] tileMatrix;
     private char[,] intTileMatrix;
-
+    [Range(1, 6)]
     public int mazeIterations = 5;
     // Start is called before the first frame update
     void Awake()
