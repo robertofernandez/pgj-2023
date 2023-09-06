@@ -4,7 +4,7 @@ using UnityEngine;
 using com.sdmission.utils;
 using com.sdmission.logic.model;
 
-namespace com.sdmission.logic.movement
+namespace com.sdmission.logic.movement.deciders
 {
     public class InputMovementDecider : IMovementDecider
     {

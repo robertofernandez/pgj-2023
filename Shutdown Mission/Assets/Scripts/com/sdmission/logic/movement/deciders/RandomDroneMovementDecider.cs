@@ -4,7 +4,7 @@ using UnityEngine;
 using com.sdmission.utils;
 using com.sdmission.logic.model;
 
-namespace com.sdmission.logic.movement
+namespace com.sdmission.logic.movement.deciders
 {
     public class RandomDroneMovementDecider : IMovementDecider
     {
@@ -15,6 +15,7 @@ namespace com.sdmission.logic.movement
 		    this.map = map;
 			this.manager = manager;
 		}
+
 		public Coordinates<int> getNextMove() {
 		    int randomDirection = Random.Range(0, 4);
 			int i = 0;

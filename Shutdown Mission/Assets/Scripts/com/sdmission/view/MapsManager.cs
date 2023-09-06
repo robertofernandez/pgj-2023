@@ -6,6 +6,7 @@ using System.IO;
 using com.sdmission.logic.model;
 using com.sdmission.utils;
 using com.sdmission.logic.movement;
+using com.sdmission.logic.movement.deciders;
 
 namespace com.sdmission.view
 {
