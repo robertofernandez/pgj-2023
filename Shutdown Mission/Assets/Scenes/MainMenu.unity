@@ -2610,7 +2610,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "M\xFAsica y SFX\nNicol\xE1s Arana\nMai\nMara Blasco"
+  m_text: "M\xFAsica y SFX\nNicol\xE1s Arana\nMaia Chiappe\nMara Blasco"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 543abf75b276eb34685be9945a1c9123, type: 2}
   m_sharedMaterial: {fileID: 1457840979174810940, guid: 543abf75b276eb34685be9945a1c9123, type: 2}
