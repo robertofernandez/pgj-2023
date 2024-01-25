@@ -73,3 +73,7 @@ crashlytics-build.properties
 /Shutdown Mission/Library
 /Shutdown Mission/Logs
 /Shutdown Mission/Temp
+Library
+Logs
+/JetPack Rider/.vsconfig
+UserSettings

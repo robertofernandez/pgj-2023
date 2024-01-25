@@ -1,0 +1,40 @@
+Nombre del juego: Pissed off Monkeys
+
+Tipo de juego: plataforma por turnos. (Si alcanza el tiempo se pude agregar el feature de grabar el movimiento para realizar durante el turno del otro)
+
+Visión General:
+Pissed off Monkeys es un juego donde los jugadores controlan monos enojados que recorren un mapa, recogen armas y utilizan tácticas para arrojar a sus rivales al agua o reducir su vida a cero. Tanto el ambiente, los personajes y las armas serán diseñadas con el objetivo de proporcionar una experiencia divertida y una sensación de comedia física.
+El juego presenta un desarrollo progresivo, desde un entorno simple hasta complejidades adicionales.
+
+Desarrollo Progresivo:
+El juego cuenta con un set mínimo jugable y con un entorno simple sin destrucción del terreno, con todos el terreno caminable plano, y un set básico de armas. Si alcanza el tiempo se irán agregando características.
+
+Características Mínimas:
+
+Escenario:
+
+Los monos aparecen inicialmente en edificios y pueden moverse caminando y saltando sobre los techos.
+El suelo es plano, pero los edificios tienen diferentes niveles, todos accesibles mediante caminar y saltar.
+
+Armas:
+
+  * Bat de béisbol:
+    Alcance: melee.
+    Se carga primero la potencia y luego la dirección.
+    Mayor potencia dificulta la precisión.
+    Posibilidad de golpear al propio mono si se falla demasiado.
+    Si se falla menos, pasa de largo y da una vuelta sobre sí mismo.
+
+  * Banana
+    Se apunta y carga, similar a la bazooka de Worms.
+	Se estampa contra lo que golpee y se cae al agua por detrás del escenario.
+	Causa daño y mueve al receptor hacia atrás.
+	
+Objetivo del Juego:
+Los jugadores deben utilizar las armas disponibles para arrojar a sus rivales al agua o reducir su vida a cero.
+
+Notas Adicionales:
+
+Se fomenta la estrategia y la habilidad en el uso de las armas.
+La introducción de niveles en los edificios agrega complejidad al movimiento y tácticas.
+Posibilidad de añadir elementos de entorno interactivos en fases avanzadas del juego.
