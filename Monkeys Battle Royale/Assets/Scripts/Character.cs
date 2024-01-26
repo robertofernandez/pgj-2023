@@ -111,11 +111,11 @@ public class Character : MonoBehaviour {
             foreach (ContactPoint2D contact in collision.contacts){
                 pointsText = pointsText + contact.point + "|";
             }
-            Debug.Log("collision: " + pointsText);
-            Debug.Log("body position: " + body.position);
-            Debug.Log("distance normal: " + body.Distance(collision.collider).normal);
-            Debug.Log("distance normalX: " + body.Distance(collision.collider).normal.x);
-            Debug.Log("distance normalY: " + body.Distance(collision.collider).normal.y);
+            //Debug.Log("collision: " + pointsText);
+            //Debug.Log("body position: " + body.position);
+            //Debug.Log("distance normal: " + body.Distance(collision.collider).normal);
+            //Debug.Log("distance normalX: " + body.Distance(collision.collider).normal.x);
+            //Debug.Log("distance normalY: " + body.Distance(collision.collider).normal.y);
         }
     }
 }
