@@ -54,6 +54,37 @@ public class Character : MonoBehaviour {
     }
 
     void FixedUpdate () {
+        onGround = Physics2D.OverlapCircle(new Vector2(groundDetector.position.x, groundDetector.position.y), 0.05f, groundMask);
+
+        Rigidbody2D rb2D = GetComponent<Rigidbody2D>();
+
+        if (rb2D != null)
+        {
+            if (!isCurrent && onGround)
+			{
+                /*
+				rb2D.constraints &= RigidbodyConstraints2D.FreezePositionX;
+                rb2D.constraints &= RigidbodyConstraints2D.FreezePositionY;
+                rb2D.constraints &= RigidbodyConstraints2D.FreezeRotation;
+                */
+                rb2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+                rb2D.isKinematic = true;
+			} else
+            {
+                /*
+                rb2D.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
+                rb2D.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
+                rb2D.constraints &= RigidbodyConstraints2D.FreezeRotation;
+                */
+                rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+                rb2D.isKinematic = false;
+            }
+        }
+        else
+        {
+            Debug.LogError("El GameObject no tiene un componente Rigidbody2D.");
+        }
+
         if(!isCurrent)
         {
             return;
@@ -70,7 +101,6 @@ public class Character : MonoBehaviour {
   //          return;
     //    }
 
-        onGround = Physics2D.OverlapCircle(new Vector2(groundDetector.position.x, groundDetector.position.y), 0.05f, groundMask);
         xInput = Input.GetAxis("Horizontal");
         if((xInput > 0 && inhibit > 0) || (xInput < 0 && inhibit < 0)){
             xInput = 0;
