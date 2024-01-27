@@ -22,6 +22,8 @@ public class Character : MonoBehaviour {
     public float inhibit = 0;
     public float inhibitCounter = 0;
 
+    private bool isCurrent = false;
+
     void Start () {
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
@@ -46,7 +48,16 @@ public class Character : MonoBehaviour {
         //animator.SetFloat ("speedX", Mathf.Abs (body.velocity.x));
     }
 
+    public void setCurrent(bool value)
+    {
+        isCurrent = value;
+    }
+
     void FixedUpdate () {
+        if(!isCurrent)
+        {
+            return;
+        }
         if(inhibitCounter > 0){
             inhibitCounter = inhibitCounter - 1;
         }
@@ -93,6 +104,10 @@ public class Character : MonoBehaviour {
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if(!isCurrent)
+        {
+            return;
+        }
         float distanceX = body.Distance(collision.collider).normal.x;
         float distanceY = body.Distance(collision.collider).normal.y;
         if (Mathf.Abs(distanceX) > Mathf.Abs(distanceY)) {
