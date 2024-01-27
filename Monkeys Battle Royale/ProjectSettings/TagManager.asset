@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Sky
+  - blur
   layers:
   - Default
   - TransparentFX
@@ -12,10 +14,10 @@ TagManager:
   - Water
   - UI
   - Players
-  - 
+  - Sky
   - Ground
-  - 
-  - 
+  - Blur
+  - Global PostProc
   - 
   - 
   - 
@@ -38,6 +40,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Sorting layer
+    uniqueID: 3333286567
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
