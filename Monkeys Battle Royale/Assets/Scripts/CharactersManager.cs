@@ -30,11 +30,11 @@ public class CharactersManager : MonoBehaviour {
         teamsMembersTransforms = new Transform[teamsAmount,charactersAmount];
         characters = new Character[teamsAmount,charactersAmount];
 
-        GameObject monkey1 = instantiateSimpleMonkey(0, 0);
-        GameObject monkey2 = instantiateSimpleMonkey(1, 0);
+        GameObject monkey1 = instantiateSimpleMonkey(-0.7f, 8f);
+        GameObject monkey2 = instantiateSimpleMonkey(-4.3f, 9f);
 
-        GameObject monkey3 = instantiateSimpleMonkey(3, 0);
-        GameObject monkey4 = instantiateSimpleMonkey(4, 0);
+        GameObject monkey3 = instantiateSimpleMonkey(5f, 6f);
+        GameObject monkey4 = instantiateSimpleMonkey(12f, 6f);
 
         teamsMembersTransforms[0, 0] = monkey1.transform.Find("Character");
         teamsMembersTransforms[0, 1] = monkey2.transform.Find("Character");
@@ -63,8 +63,8 @@ public class CharactersManager : MonoBehaviour {
         characters[currentTeam, currentCharacter].setCurrent(true);
     }
     
-    public GameObject instantiateSimpleMonkey(float x, float z) {
-        Vector3 position = new Vector3(x, 0f, z);
+    public GameObject instantiateSimpleMonkey(float x, float y) {
+        Vector3 position = new Vector3(x, y, 0);
         Quaternion rotation = Quaternion.identity;
         GameObject instantiatedPrefab = Instantiate(simpleMonkey, position, rotation);
         return instantiatedPrefab;
