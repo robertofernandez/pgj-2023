@@ -1,7 +1,13 @@
 using UnityEngine;
 
 public class CharactersManager : MonoBehaviour {
+    
+    public int MAX_POWER = 400;
+
+    public float MAX_BANANA_SPEED = 6;
+
     public GameObject simpleMonkey;
+    public GameObject banana;
     public GameObject timerObject;
     private Transform currentCharacterTransform;
     private Transform[,] teamsMembersTransforms;
@@ -18,6 +24,12 @@ public class CharactersManager : MonoBehaviour {
     private bool characterChanged = false;
 
     private Timer timerElement;
+
+    private int currentBananasAmunition = 1;
+
+    public string status= "holding";
+
+    public int power = 1;
 
 	void Start() 
     {
@@ -61,6 +73,11 @@ public class CharactersManager : MonoBehaviour {
         characters[currentTeam, currentCharacter].setCurrent(false);
         currentTeam = (currentTeam + 1) % teamsAmount;
         characters[currentTeam, currentCharacter].setCurrent(true);
+
+        currentBananasAmunition = 1;
+        status= "holding";
+        power = 1;
+
     }
     
     public GameObject instantiateSimpleMonkey(float x, float y) {
@@ -69,6 +86,14 @@ public class CharactersManager : MonoBehaviour {
         GameObject instantiatedPrefab = Instantiate(simpleMonkey, position, rotation);
         return instantiatedPrefab;
     }
+
+    public GameObject instantiateBanana(float x, float y) {
+        Vector3 position = new Vector3(x, y, 0);
+        Quaternion rotation = Quaternion.identity;
+        GameObject instantiatedPrefab = Instantiate(banana, position, rotation);
+        return instantiatedPrefab;
+    }
+
 
     public Transform getCurrentCharacterTransform() 
     {
@@ -88,6 +113,42 @@ public class CharactersManager : MonoBehaviour {
             } else
             {
                 characterChanged = false;
+            }
+        }
+
+        if(currentBananasAmunition > 0)
+        {
+            if(Input.GetKey(KeyCode.Space))
+            {
+                //Debug.Log("shooting");
+                if(status == "holding") 
+                {
+                    status = "charging";
+                    power = 1;
+                } else if (status == "charging")
+                {
+                    power++;
+                    if (power > MAX_POWER)
+                    {
+                        power = MAX_POWER;
+                    }
+                }
+            } else
+            {
+                if (status == "charging")
+                {
+                    currentBananasAmunition--;
+                    float bananaX = getCurrentCharacterTransform().position.x + 0.2f;
+                    float bananaY = getCurrentCharacterTransform().position.y + 0.2f;
+
+                    float bananaSpeed = MAX_BANANA_SPEED * power / MAX_POWER;
+
+                    Debug.Log("Power: " + power + "Dropping banana with " + bananaSpeed + " speed at " + bananaX + ", " + bananaY);
+                    GameObject bananaObject = instantiateBanana(bananaX, bananaY);
+                    Banana banana = bananaObject.GetComponent<Banana>();
+                    banana.initialSpeed = bananaSpeed;
+                    status = "fired";
+                }
             }
         }
     }
