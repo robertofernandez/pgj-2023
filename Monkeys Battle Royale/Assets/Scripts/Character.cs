@@ -24,6 +24,12 @@ public class Character : MonoBehaviour {
 
     private bool isCurrent = false;
 
+    private bool underAttack = false;
+
+    public float velocityThreshold = 0.01f;
+    public float inactivityTime = 2.0f;  // Adjust as needed
+    private float inactiveTime;
+
     void Start () {
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
@@ -56,28 +62,37 @@ public class Character : MonoBehaviour {
     void FixedUpdate () {
         onGround = Physics2D.OverlapCircle(new Vector2(groundDetector.position.x, groundDetector.position.y), 0.05f, groundMask);
 
-        Rigidbody2D rb2D = GetComponent<Rigidbody2D>();
-
-        if (rb2D != null)
+        if(isCurrent)
         {
-            if (!isCurrent && onGround)
+            underAttack = false;
+        }
+        if (body != null)
+        {
+            if (underAttack && !isCurrent)
+            {
+                if (body.velocity.magnitude < velocityThreshold && Mathf.Abs(body.angularVelocity) < velocityThreshold)
+                {
+                    if (Time.time - inactiveTime > inactivityTime)
+                    {
+                        underAttack = false;
+                        body.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+                        body.isKinematic = true;
+                    }
+                }
+                else
+                {
+                    inactiveTime = Time.time;
+                }
+            }
+            if (!isCurrent && onGround && !underAttack)
 			{
-                /*
-				rb2D.constraints &= RigidbodyConstraints2D.FreezePositionX;
-                rb2D.constraints &= RigidbodyConstraints2D.FreezePositionY;
-                rb2D.constraints &= RigidbodyConstraints2D.FreezeRotation;
-                */
-                rb2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
-                rb2D.isKinematic = true;
+                body.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+                body.isKinematic = true;
 			} else
             {
-                /*
-                rb2D.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
-                rb2D.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
-                rb2D.constraints &= RigidbodyConstraints2D.FreezeRotation;
-                */
-                rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-                rb2D.isKinematic = false;
+
+                body.constraints = RigidbodyConstraints2D.FreezeRotation;
+                body.isKinematic = false;
             }
         }
         else
@@ -130,6 +145,23 @@ public class Character : MonoBehaviour {
         }
 
         body.velocity = new Vector2(currentVelocityX , velocityY);
+    }
+
+    public void getHit(float power, int direction)
+    {
+        underAttack = true;
+        body.constraints = RigidbodyConstraints2D.FreezeRotation;
+        body.isKinematic = false;
+        Debug.Log("Getting hit by and object with power: " + power);
+        if (body != null)
+        {
+            Vector2 initialSpeedVector = new Vector2(power * direction, power);
+            body.velocity = initialSpeedVector;
+        }
+        else
+        {
+            Debug.LogError("No Rigidbody for banana.");
+        }
     }
     
     private void OnCollisionEnter2D(Collision2D collision)

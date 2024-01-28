@@ -148,6 +148,7 @@ public class CharactersManager : MonoBehaviour {
                     Banana banana = bananaObject.GetComponent<Banana>();
                     banana.initialSpeed = bananaSpeed;
                     status = "fired";
+                    //characters[(currentTeam + 1) % 2, currentCharacter].getHit(6, -1);
                 }
             }
         }
