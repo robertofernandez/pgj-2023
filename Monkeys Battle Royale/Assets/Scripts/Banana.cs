@@ -5,9 +5,11 @@ public class Banana : MonoBehaviour
     public float initialSpeed = 1f;
     public Vector2 normalizedDirection;
 
+    private Rigidbody2D rb;
+
     void Start()
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
 
         if (rb != null && normalizedDirection != null)
         {
@@ -23,6 +25,15 @@ public class Banana : MonoBehaviour
 
     void OnCollisionEnter2D (Collision2D collision)
     {
-        Debug.Log("Banana clides with " + collision.gameObject);
+        Debug.Log("Banana collides with " + collision.gameObject);
+        Character character = collision.gameObject.GetComponent<Character>();
+        if (character != null) {
+            int direction = 1;
+            if (rb.position.x > collision.gameObject.transform.position.x)
+            {
+                direction = -1;
+            }
+            character.getHit(6, direction);
+        }
     }
 }
