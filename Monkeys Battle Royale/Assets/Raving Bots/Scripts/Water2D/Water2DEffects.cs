@@ -54,10 +54,9 @@ namespace RavingBots.Water2D
 			{
 				//Destroy(other.gameObject);
 				other.GetComponent<Character>().die();
-				characterManager.GetComponent<CharactersManager>().OnTimerEnd();
-
+				//characterManager.GetComponent<CharactersManager>().OnTimerEnd();
             }
-            var rigidbody = other.transform.parent.GetComponent<Rigidbody2D>();
+            var rigidbody = other.transform.GetComponent<Rigidbody2D>();
 			var power = SplashFXPowerScale * Vector2.Dot(rigidbody.velocity, Vector2.down) * rigidbody.mass;
 	
 			var splash = _splashCache[_splash];

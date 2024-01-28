@@ -5429,13 +5429,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf2c83652e9f2d4db1c816726f3779e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  water: {fileID: 0}
+  camera: {fileID: 0}
   MAX_POWER: 400
   MAX_BANANA_SPEED: 8
   powerBarUI: {fileID: 1351119295}
   simpleMonkey: {fileID: 6882829524908040387, guid: 06ac17a9c6be8114084cc0a83bee1f0d,
     type: 3}
   banana: {fileID: 3233819567863762738, guid: 889982ef63b986747912e3de86bdfae6, type: 3}
-  batProjectile: {fileID: 0}
+  halo: {fileID: 7424619761945646312, guid: b8d878a1bdc04314c983e72f7aacfa9d, type: 3}
+  batProjectile: {fileID: 5653858966250519025, guid: 9e08d0c985ed9aa4e9bb159214ea2ced,
+    type: 3}
   timerObject: {fileID: 1455171023}
   currentTeam: 0
   currentCharacter: 0
@@ -5444,6 +5448,7 @@ MonoBehaviour:
   status: holding
   power: 1
   currentWeapon: banana
+  aliveCount: 
 --- !u!4 &2070351959
 Transform:
   m_ObjectHideFlags: 0
