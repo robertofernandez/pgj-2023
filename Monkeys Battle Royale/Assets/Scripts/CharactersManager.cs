@@ -155,7 +155,7 @@ public class CharactersManager : MonoBehaviour {
     private void riseWaterLevel()
     {
         Vector3 cameraCurrentPos = camera.transform.position;
-        StartCoroutine(SmoothLerp(water, 3f, cameraCurrentPos));
+        //StartCoroutine(SmoothLerp(water, 3f, cameraCurrentPos));
     }
     
     public GameObject instantiateSimpleMonkey(float x, float y) {
