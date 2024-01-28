@@ -195,4 +195,10 @@ public class Character : MonoBehaviour {
             //Debug.Log("distance normalY: " + body.Distance(collision.collider).normal.y);
         }
     }
+
+	public void failBatHit()
+	{
+		Debug.Log("I failed!");
+	}
+
 }

@@ -9,6 +9,8 @@ public class CharactersManager : MonoBehaviour {
     public GameObject powerBarUI;
     public GameObject simpleMonkey;
     public GameObject banana;
+
+    public GameObject batProjectile;
     public GameObject timerObject;
     private Transform currentCharacterTransform;
     private Transform[,] teamsMembersTransforms;
@@ -101,6 +103,12 @@ public class CharactersManager : MonoBehaviour {
         return instantiatedPrefab;
     }
 
+    public GameObject instantiateBatProjectile(float x, float y) {
+        Vector3 position = new Vector3(x, y, 0);
+        Quaternion rotation = Quaternion.identity;
+        GameObject instantiatedPrefab = Instantiate(batProjectile, position, rotation);
+        return instantiatedPrefab;
+    }
 
     public Transform getCurrentCharacterTransform() 
     {
@@ -254,7 +262,50 @@ public class CharactersManager : MonoBehaviour {
 
     private void batAction()
     {
-        Debug.Log("Pegar batazo");
+        float centerX = getCurrentCharacterTransform().position.x;
+        float centerY = getCurrentCharacterTransform().position.y;
+        Vector3 mousePosition = Input.mousePosition;
+        Vector2 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+        float distanceX = worldMousePosition.x - centerX;
+        float distanceY = worldMousePosition.y - centerY;
+
+        Debug.Log("player x: " + centerX + "; mouse x: " + worldMousePosition.x);
+        Debug.Log("player y: " + centerY + "; mouse y: " + worldMousePosition.y);
+
+        if(distanceX == 0 && distanceY == 0)
+        {
+            distanceX = 0.2f;
+        }
+
+        Vector2 normalizedDistanceVector = new Vector2(distanceX, distanceY);
+
+        Debug.Log("distance: " + normalizedDistanceVector);
+
+        normalizedDistanceVector.Normalize();
+
+        Debug.Log("normalized distance: " + normalizedDistanceVector);
+
+        float bananaDistance = distanceX;
+        if(distanceX < 0)
+        {
+            bananaDistance = -0.5f;
+        } else
+        {
+            bananaDistance = 0.5f;
+        }
+
+        float bananaX = getCurrentCharacterTransform().position.x + bananaDistance;
+        float bananaY = getCurrentCharacterTransform().position.y + 0.5f;
+
+        float bananaSpeed = MAX_BANANA_SPEED * power / MAX_POWER;
+
+        Debug.Log("Power: " + power + ". Hitting with bat with " + bananaSpeed + " speed at " + bananaX + ", " + bananaY);
+        GameObject bananaObject = instantiateBatProjectile(bananaX, bananaY);
+        BatProjectile banana = bananaObject.GetComponent<BatProjectile>();
+        banana.initialSpeed = bananaSpeed;
+        banana.normalizedDirection = normalizedDistanceVector;
+        banana.sender = characters[currentTeam, currentCharacter];
         status = "fired";
     }
 

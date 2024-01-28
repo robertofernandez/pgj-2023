@@ -4028,6 +4028,8 @@ MonoBehaviour:
   simpleMonkey: {fileID: 6882829524908040387, guid: 06ac17a9c6be8114084cc0a83bee1f0d,
     type: 3}
   banana: {fileID: 3233819567863762738, guid: 889982ef63b986747912e3de86bdfae6, type: 3}
+  batProjectile: {fileID: 5653858966250519025, guid: 9e08d0c985ed9aa4e9bb159214ea2ced,
+    type: 3}
   timerObject: {fileID: 1455171023}
   currentTeam: 0
   currentCharacter: 0
@@ -4035,6 +4037,7 @@ MonoBehaviour:
   reloadInTurn: 0
   status: holding
   power: 1
+  currentWeapon: banana
 --- !u!4 &2070351959
 Transform:
   m_ObjectHideFlags: 0
