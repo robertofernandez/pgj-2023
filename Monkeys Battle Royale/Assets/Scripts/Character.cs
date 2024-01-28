@@ -163,7 +163,7 @@ public class Character : MonoBehaviour {
             Debug.LogError("No Rigidbody for banana.");
         }
     }
-    
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(!isCurrent)

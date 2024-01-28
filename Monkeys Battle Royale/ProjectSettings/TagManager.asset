@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Sky
   - blur
+  - Water
   layers:
   - Default
   - TransparentFX

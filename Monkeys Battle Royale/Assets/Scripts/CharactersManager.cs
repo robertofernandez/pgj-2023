@@ -66,7 +66,7 @@ public class CharactersManager : MonoBehaviour {
         timerElement.onTimerEnd.AddListener(OnTimerEnd);
     }
 
-    void OnTimerEnd()
+    public void OnTimerEnd()
     {
         Debug.Log("Timer ended, restaring...");
         timerElement.seconds = 25;
