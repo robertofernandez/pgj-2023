@@ -32,7 +32,11 @@ public class CharactersManager : MonoBehaviour {
 
     public string status = "holding";
 
+    private bool weaponsLocked = false;
+
     public int power = 1;
+
+    public string currentWeapon = "banana";
 
 	void Start() 
     {
@@ -80,7 +84,7 @@ public class CharactersManager : MonoBehaviour {
         currentBananasAmunition = 1;
         status= "holding";
         power = 1;
-
+        weaponsLocked = false;
     }
     
     public GameObject instantiateSimpleMonkey(float x, float y) {
@@ -105,6 +109,30 @@ public class CharactersManager : MonoBehaviour {
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if(!weaponsLocked)
+            {
+                currentWeapon = "banana";
+                Debug.Log("Current Weapon: Banana");
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if(!weaponsLocked)
+            {
+                currentWeapon = "bat";
+                Debug.Log("Current Weapon: Baseball bat");
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if(!weaponsLocked)
+            {
+                currentWeapon = "frozen banana";
+                Debug.Log("Current Weapon: Frozen Banana");
+            }
+        }
          if (Input.GetKeyDown(KeyCode.Tab))
         {
             if(!characterChanged)
@@ -119,10 +147,11 @@ public class CharactersManager : MonoBehaviour {
             }
         }
 
-        if(currentBananasAmunition > 0)
+        if(isChargeable(currentWeapon))
         {
             if(Input.GetKey(KeyCode.Space))
             {
+                weaponsLocked = true;
                 //Debug.Log("shooting");
                 if(status == "holding") 
                 {
@@ -148,61 +177,103 @@ public class CharactersManager : MonoBehaviour {
                 if (status == "charging")
                 {
                     powerBarUI.SetActive(false);
-                    currentBananasAmunition--;
-                    float centerX = getCurrentCharacterTransform().position.x;
-                    float centerY = getCurrentCharacterTransform().position.y;
-                    Vector3 mousePosition = Input.mousePosition;
-                    Vector2 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-
-                    float distanceX = worldMousePosition.x - centerX;
-                    float distanceY = worldMousePosition.y - centerY;
-
-                    Debug.Log("player x: " + centerX + "; mouse x: " + worldMousePosition.x);
-                    Debug.Log("player y: " + centerY + "; mouse y: " + worldMousePosition.y);
-
-                    if(distanceX == 0 && distanceY == 0)
+                    switch (currentWeapon) 
                     {
-                        distanceX = 0.2f;
+                    case "banana":
+                        bananaAction();
+                        break;
+                    case "frozen banana":
+                        frozenBananaAction();
+                        break;
+                    case "bat":
+                        batAction();
+                        break;
+                    default:
+                        Debug.Log("UNKNOWN WEAPON: " + currentWeapon);
+                        break;
                     }
-
-                    Vector2 normalizedDistanceVector = new Vector2(distanceX, distanceY);
-
-                    Debug.Log("distance: " + normalizedDistanceVector);
-
-                    normalizedDistanceVector.Normalize();
-
-                    Debug.Log("normalized distance: " + normalizedDistanceVector);
-
-                    float bananaDistance = distanceX;
-                    if(distanceX < 0)
-                    {
-                        bananaDistance = -0.5f;
-                    } else
-                    {
-                        bananaDistance = 0.5f;
-                    }
-
-                    float bananaX = getCurrentCharacterTransform().position.x + bananaDistance;
-                    float bananaY = getCurrentCharacterTransform().position.y + 0.5f;
-
-                    float bananaSpeed = MAX_BANANA_SPEED * power / MAX_POWER;
-
-                    Debug.Log("Power: " + power + ". Dropping banana with " + bananaSpeed + " speed at " + bananaX + ", " + bananaY);
-                    GameObject bananaObject = instantiateBanana(bananaX, bananaY);
-                    Banana banana = bananaObject.GetComponent<Banana>();
-                    banana.initialSpeed = bananaSpeed;
-                    banana.normalizedDirection = normalizedDistanceVector;
-                    if(reloadInTurn)
-                    {
-                        status = "holding";
-                    } else
-                    {
-                        status = "fired";
-                    }
-                    
-                    //characters[(currentTeam + 1) % 2, currentCharacter].getHit(6, -1);
                 }
             }
+        }
+    }
+
+    private void bananaAction()
+    {
+        currentBananasAmunition--;
+        float centerX = getCurrentCharacterTransform().position.x;
+        float centerY = getCurrentCharacterTransform().position.y;
+        Vector3 mousePosition = Input.mousePosition;
+        Vector2 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+        float distanceX = worldMousePosition.x - centerX;
+        float distanceY = worldMousePosition.y - centerY;
+
+        Debug.Log("player x: " + centerX + "; mouse x: " + worldMousePosition.x);
+        Debug.Log("player y: " + centerY + "; mouse y: " + worldMousePosition.y);
+
+        if(distanceX == 0 && distanceY == 0)
+        {
+            distanceX = 0.2f;
+        }
+
+        Vector2 normalizedDistanceVector = new Vector2(distanceX, distanceY);
+
+        Debug.Log("distance: " + normalizedDistanceVector);
+
+        normalizedDistanceVector.Normalize();
+
+        Debug.Log("normalized distance: " + normalizedDistanceVector);
+
+        float bananaDistance = distanceX;
+        if(distanceX < 0)
+        {
+            bananaDistance = -0.5f;
+        } else
+        {
+            bananaDistance = 0.5f;
+        }
+
+        float bananaX = getCurrentCharacterTransform().position.x + bananaDistance;
+        float bananaY = getCurrentCharacterTransform().position.y + 0.5f;
+
+        float bananaSpeed = MAX_BANANA_SPEED * power / MAX_POWER;
+
+        Debug.Log("Power: " + power + ". Dropping banana with " + bananaSpeed + " speed at " + bananaX + ", " + bananaY);
+        GameObject bananaObject = instantiateBanana(bananaX, bananaY);
+        Banana banana = bananaObject.GetComponent<Banana>();
+        banana.initialSpeed = bananaSpeed;
+        banana.normalizedDirection = normalizedDistanceVector;
+        if(reloadInTurn)
+        {
+            status = "holding";
+        } else
+        {
+            status = "fired";
+        }
+    }
+
+    private void batAction()
+    {
+        Debug.Log("Pegar batazo");
+        status = "fired";
+    }
+
+    private void frozenBananaAction()
+    {
+        Debug.Log("Tirar banana congelada");
+        status = "fired";
+    }
+
+    private bool isChargeable(string weaponName)
+    {
+        switch (weaponName) 
+        {
+        case "banana":
+        case "frozen banana":
+        case "bat":
+            return true;
+        default:
+            return false;
         }
     }
 }
