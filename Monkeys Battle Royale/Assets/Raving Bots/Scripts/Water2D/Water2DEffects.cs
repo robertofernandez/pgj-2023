@@ -52,9 +52,10 @@ namespace RavingBots.Water2D
 
 			if (other.gameObject.CompareTag("Player"))
 			{
-				Destroy(other.gameObject);
-				characterManager.GetComponent<CharactersManager>().OnTimerEnd();
-
+				//Destroy(other.gameObject);
+				//characterManager.GetComponent<CharactersManager>().OnTimerEnd();
+				Character characterHit = other.gameObject.GetComponent<Character>();
+				characterHit.die();
             }
             var rigidbody = other.transform.parent.GetComponent<Rigidbody2D>();
 			var power = SplashFXPowerScale * Vector2.Dot(rigidbody.velocity, Vector2.down) * rigidbody.mass;

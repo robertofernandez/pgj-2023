@@ -40,6 +40,8 @@ public class CharactersManager : MonoBehaviour {
 
     public string currentWeapon = "banana";
 
+    public int[] aliveCount;
+
 	void Start() 
     {
         currentTeam = 0;
@@ -57,6 +59,11 @@ public class CharactersManager : MonoBehaviour {
         GameObject monkey3 = instantiateSimpleMonkey(5f, 6f);
         GameObject monkey4 = instantiateSimpleMonkey(12f, 6f);
 
+        aliveCount = new int[teamsAmount];
+
+        aliveCount[0] = charactersAmount;
+        aliveCount[1] = charactersAmount;
+
         teamsMembersTransforms[0, 0] = monkey1.transform.Find("Character");
         teamsMembersTransforms[0, 1] = monkey2.transform.Find("Character");
 
@@ -68,14 +75,40 @@ public class CharactersManager : MonoBehaviour {
         characters[1, 0] = teamsMembersTransforms[1, 0].GetComponent<Character>();
         characters[1, 1] = teamsMembersTransforms[1, 1].GetComponent<Character>();
 
+        characters[0, 0].setId(0, 0, this);
+        characters[0, 1].setId(0, 1, this);
+        characters[1, 0].setId(1, 0, this);
+        characters[1, 1].setId(1, 1, this);
+
         characters[currentTeam, currentCharacter].setCurrent(true);
 
         timerElement = timerObject.GetComponent<Timer>();
         timerElement.onTimerEnd.AddListener(OnTimerEnd);
     }
 
+    public void characterDies(int teamNumber, int characterNumber)
+    {
+        aliveCount[teamNumber]--;
+        if(aliveCount[teamNumber] < 1)
+        {
+            Debug.Log("Team " + teamNumber + " lost");
+            status = "game over";
+            return;
+        }
+        if (currentCharacter == characterNumber && currentTeam == teamNumber)
+        {
+                characters[currentTeam, currentCharacter].setCurrent(false);
+                currentCharacter = (currentCharacter + 1) % charactersAmount;
+                characters[currentTeam, currentCharacter].setCurrent(true);
+        }
+    }
+
     public void OnTimerEnd()
     {
+        if(status == "game over")
+        {
+            return;
+        }
         Debug.Log("Timer ended, restaring...");
         timerElement.seconds = 25;
         timerElement.StartTimer();
@@ -85,6 +118,7 @@ public class CharactersManager : MonoBehaviour {
 
         currentBananasAmunition = 1;
         status= "holding";
+        currentWeapon = "banana";
         power = 1;
         weaponsLocked = false;
     }
@@ -117,6 +151,11 @@ public class CharactersManager : MonoBehaviour {
 
     void Update()
     {
+        if(status == "game over")
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
         {
             if(!weaponsLocked)
@@ -143,16 +182,16 @@ public class CharactersManager : MonoBehaviour {
         }
          if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if(!characterChanged)
-            {
-                characterChanged = true;
+//            if(!characterChanged)
+//            {
+//                characterChanged = true;
                 characters[currentTeam, currentCharacter].setCurrent(false);
                 currentCharacter = (currentCharacter + 1) % charactersAmount;
                 characters[currentTeam, currentCharacter].setCurrent(true);
-            } else
-            {
-                characterChanged = false;
-            }
+//            } else
+//            {
+//                characterChanged = false;
+//            }
         }
 
         if(isChargeable(currentWeapon))
