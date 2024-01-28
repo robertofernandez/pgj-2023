@@ -37,7 +37,11 @@ public class Character : MonoBehaviour {
 
     public CharactersManager manager;
 
-    public float healthValue = 20;
+    public static float MAX_HEALTH = 20f;
+
+    public float healthValue = MAX_HEALTH;
+
+    private HealthLevel healthLevel;
 
 
     public void setId(int team, int player, CharactersManager charManager)
@@ -49,6 +53,8 @@ public class Character : MonoBehaviour {
 
     public void die()
     {
+        healthLevel.setHealth(0f);
+
         if( alive)
         {
             alive = false;
@@ -65,6 +71,7 @@ public class Character : MonoBehaviour {
     void Start () {
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
+        healthLevel = transform.Find("HealthBar").Find("HealthLevel").GetComponent<HealthLevel>();
 		body.gravityScale = 2;
         onGround = false;
         inhibit = 0;
@@ -207,6 +214,8 @@ public class Character : MonoBehaviour {
         if(healthValue < 1)
         {
             die();
+        } else {
+            healthLevel.setHealth(100 * healthValue / MAX_HEALTH);
         }
         Debug.Log("Health is " + healthValue);
     }
