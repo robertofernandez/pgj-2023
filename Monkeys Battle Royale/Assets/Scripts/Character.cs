@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class Character : MonoBehaviour {
+
+    public AudioSource soundFootstep;
     private Rigidbody2D body;
     public Animator animator;
     public Transform groundDetector;
@@ -104,6 +106,7 @@ public class Character : MonoBehaviour {
         }
         if (body != null)
         {
+
             if (underAttack && !isCurrent)
             {
                 if (body.velocity.magnitude < velocityThreshold && Mathf.Abs(body.angularVelocity) < velocityThreshold)
@@ -154,6 +157,10 @@ public class Character : MonoBehaviour {
 
         xInput = Input.GetAxis("Horizontal");
         if((xInput > 0 && inhibit > 0) || (xInput < 0 && inhibit < 0)){
+            if (!soundFootstep.isPlaying)
+            {
+                soundFootstep.Play();
+            }
             xInput = 0;
         }
         yInput = Input.GetAxis("Vertical");
