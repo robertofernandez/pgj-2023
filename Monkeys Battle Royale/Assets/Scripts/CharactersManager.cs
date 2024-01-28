@@ -162,7 +162,7 @@ public class CharactersManager : MonoBehaviour {
 
                     if(distanceX == 0 && distanceY == 0)
                     {
-                        distanceX = 0.1f;
+                        distanceX = 0.2f;
                     }
 
                     Vector2 normalizedDistanceVector = new Vector2(distanceX, distanceY);
@@ -176,14 +176,14 @@ public class CharactersManager : MonoBehaviour {
                     float bananaDistance = distanceX;
                     if(distanceX < 0)
                     {
-                        bananaDistance = -0.2f;
+                        bananaDistance = -0.5f;
                     } else
                     {
-                        bananaDistance = 0.2f;
+                        bananaDistance = 0.5f;
                     }
 
                     float bananaX = getCurrentCharacterTransform().position.x + bananaDistance;
-                    float bananaY = getCurrentCharacterTransform().position.y + 0.2f;
+                    float bananaY = getCurrentCharacterTransform().position.y + 0.5f;
 
                     float bananaSpeed = MAX_BANANA_SPEED * power / MAX_POWER;
 

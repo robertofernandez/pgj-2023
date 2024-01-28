@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Banana : MonoBehaviour
+public class FrozenBanana : MonoBehaviour
 {
     public float initialSpeed = 1f;
     public Vector2 normalizedDirection;
@@ -11,7 +11,7 @@ public class Banana : MonoBehaviour
 
         if (rb != null && normalizedDirection != null)
         {
-            Vector2 initialSpeedVector = new Vector2(normalizedDirection.x * initialSpeed, normalizedDirection.y * initialSpeed);
+            Vector2 initialSpeedVector = new Vector2(normalizedDirection.x * initialSpeed, normalizedDirection.y * initialSpeed * 3);
             Debug.Log("Launching banana with vector: " + initialSpeedVector);
             rb.velocity = initialSpeedVector;
         }
@@ -19,10 +19,5 @@ public class Banana : MonoBehaviour
         {
             Debug.LogError("No Rigidbody or normalized direction for banana.");
         }
-    }
-
-    void OnCollisionEnter2D (Collision2D collision)
-    {
-        Debug.Log("Banana clides with " + collision.gameObject);
     }
 }
