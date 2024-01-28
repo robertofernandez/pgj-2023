@@ -1,9 +1,11 @@
 using RavingBots.Water2D;
+using System.Collections;
 using UnityEngine;
 
 public class CharactersManager : MonoBehaviour {
 
     public GameObject water;
+    public GameObject camera;
 
     public int MAX_POWER = 400;
 
@@ -79,6 +81,7 @@ public class CharactersManager : MonoBehaviour {
 
     public void OnTimerEnd()
     {
+        riseWaterLevel();
         Debug.Log("Timer ended, restaring...");
         timerElement.seconds = 25;
         timerElement.StartTimer();
@@ -90,14 +93,30 @@ public class CharactersManager : MonoBehaviour {
         status= "holding";
         power = 1;
         weaponsLocked = false;
-        riseWaterLevel();
     }
 
+    // mover a utils
+    private IEnumerator SmoothLerp(GameObject target, float time, Vector3 cameraPosition)
+    {
+        Vector3 cameraTargetPos = new Vector3(cameraPosition.x, water.transform.position.y, cameraPosition.z);
+
+        Vector3 startingPos = target.transform.position;
+        Vector3 finalPos = target.transform.position + (transform.up * 0.5f);
+
+        float elapsedTime = 0;
+
+        while (elapsedTime < time)
+        {
+            target.transform.position = Vector3.Lerp(startingPos, finalPos, (elapsedTime / time));
+            camera.transform.position = Vector3.Lerp(cameraPosition, cameraTargetPos, (elapsedTime / time));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
     private void riseWaterLevel()
     {
-        Vector3 currentPosition = water.transform.position;
-        currentPosition.y += 0.5f;
-        water.transform.position = currentPosition;
+        Vector3 cameraCurrentPos = camera.transform.position;
+        StartCoroutine(SmoothLerp(water, 3f, cameraCurrentPos));
     }
     
     public GameObject instantiateSimpleMonkey(float x, float y) {
