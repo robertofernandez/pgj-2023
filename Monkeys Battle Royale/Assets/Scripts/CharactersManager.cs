@@ -306,6 +306,7 @@ public class CharactersManager : MonoBehaviour {
         banana.initialSpeed = bananaSpeed;
         banana.normalizedDirection = normalizedDistanceVector;
         banana.sender = characters[currentTeam, currentCharacter];
+        banana.initialPosition = getCurrentCharacterTransform().position;
         status = "fired";
     }
 

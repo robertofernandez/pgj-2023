@@ -12,8 +12,10 @@ public class BatProjectile : MonoBehaviour
 	
 	void Update()
 	{
-		if(!failSent && Vector2.Distance(initialPosition, rb.position) > BAT_RANGE)
+        float distanceOfImpact = Vector2.Distance(initialPosition, rb.position);
+		if(!failSent && distanceOfImpact > BAT_RANGE)
 		{
+            Debug.Log("Destroying bat projectile; distance of impact: " + distanceOfImpact);
 			failSent = true;
 			sender.failBatHit();
 			Destroy(gameObject);
@@ -38,8 +40,9 @@ public class BatProjectile : MonoBehaviour
 
     void OnCollisionEnter2D (Collision2D collision)
     {
-        Debug.Log("Bat projectile collides with " + collision.gameObject);
-		if(Vector2.Distance(initialPosition, rb.position) > BAT_RANGE)
+        float distanceOfImpact = Vector2.Distance(initialPosition, rb.position);
+        Debug.Log("Bat projectile collides with " + collision.gameObject + " at distance: " + distanceOfImpact);
+		if(distanceOfImpact > BAT_RANGE)
 		{
 			if(!failSent)
 			{
