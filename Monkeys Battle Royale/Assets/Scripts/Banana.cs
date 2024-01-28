@@ -35,5 +35,6 @@ public class Banana : MonoBehaviour
             }
             character.getHit(6, direction);
         }
+        Destroy(gameObject);
     }
 }
