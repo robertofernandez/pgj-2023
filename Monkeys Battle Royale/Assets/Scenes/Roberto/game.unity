@@ -4023,7 +4023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MAX_POWER: 400
-  MAX_BANANA_SPEED: 8
+  MAX_BANANA_SPEED: 16
   powerBarUI: {fileID: 1351119295}
   simpleMonkey: {fileID: 6882829524908040387, guid: 06ac17a9c6be8114084cc0a83bee1f0d,
     type: 3}
@@ -4031,6 +4031,8 @@ MonoBehaviour:
   timerObject: {fileID: 1455171023}
   currentTeam: 0
   currentCharacter: 0
+  currentBananasAmunition: 1
+  reloadInTurn: 0
   status: holding
   power: 1
 --- !u!4 &2070351959
