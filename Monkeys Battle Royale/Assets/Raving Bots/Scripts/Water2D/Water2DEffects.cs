@@ -49,12 +49,12 @@ namespace RavingBots.Water2D
 
 		public void OnTriggerEnter2D(Collider2D other)
 		{
-            if (other.gameObject.CompareTag("Player"))
-            {
-                characterManager.GetComponent<CharactersManager>().changeCharacter();
-                characterManager.GetComponent<CharactersManager>().OnTimerEnd();
-                Destroy(other.gameObject);
-				//other.gameObject.SetActive(false);
+
+			if (other.gameObject.CompareTag("Player"))
+			{
+				//Destroy(other.gameObject);
+				other.GetComponent<Character>().die();
+				characterManager.GetComponent<CharactersManager>().OnTimerEnd();
 
             }
             var rigidbody = other.transform.parent.GetComponent<Rigidbody2D>();

@@ -30,6 +30,38 @@ public class Character : MonoBehaviour {
     public float inactivityTime = 2.0f;  // Adjust as needed
     private float inactiveTime;
 
+    public bool alive = true;
+
+    public int teamNumber;
+    public int characterNumber;
+
+    public CharactersManager manager;
+
+    public float healthValue = 20;
+
+
+    public void setId(int team, int player, CharactersManager charManager)
+    {
+        teamNumber = team;
+        characterNumber = player;
+        manager = charManager;
+    }
+
+    public void die()
+    {
+        if( alive)
+        {
+            alive = false;
+            if (body != null)
+            {
+                transform.position = new Vector2(characterNumber + teamNumber * 4, 20);
+                body.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+                body.isKinematic = true;
+            }
+            manager.characterDies(teamNumber, characterNumber);
+        }
+    }
+
     void Start () {
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
@@ -60,6 +92,10 @@ public class Character : MonoBehaviour {
     }
 
     void FixedUpdate () {
+        if(!alive)
+        {
+            return;
+        }
         onGround = Physics2D.OverlapCircle(new Vector2(groundDetector.position.x, groundDetector.position.y), 0.05f, groundMask);
 
         if(isCurrent)
@@ -149,6 +185,11 @@ public class Character : MonoBehaviour {
 
     public void getHit(float power, int direction)
     {
+        if(!alive)
+        {
+            return;
+        }
+
         underAttack = true;
         body.constraints = RigidbodyConstraints2D.FreezeRotation;
         body.isKinematic = false;
@@ -162,10 +203,21 @@ public class Character : MonoBehaviour {
         {
             Debug.LogError("No Rigidbody for banana.");
         }
+        healthValue -=power;
+        if(healthValue < 1)
+        {
+            die();
+        }
+        Debug.Log("Health is " + healthValue);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if(!alive)
+        {
+            return;
+        }
+
         if(!isCurrent)
         {
             return;
