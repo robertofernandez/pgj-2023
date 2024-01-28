@@ -5429,8 +5429,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf2c83652e9f2d4db1c816726f3779e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  water: {fileID: 584608840}
-  camera: {fileID: 1231207399}
+  water: {fileID: 0}
+  camera: {fileID: 0}
   MAX_POWER: 400
   MAX_BANANA_SPEED: 8
   powerBarUI: {fileID: 1351119295}
@@ -5438,7 +5438,8 @@ MonoBehaviour:
     type: 3}
   banana: {fileID: 3233819567863762738, guid: 889982ef63b986747912e3de86bdfae6, type: 3}
   halo: {fileID: 7424619761945646312, guid: b8d878a1bdc04314c983e72f7aacfa9d, type: 3}
-  batProjectile: {fileID: 0}
+  batProjectile: {fileID: 5653858966250519025, guid: 9e08d0c985ed9aa4e9bb159214ea2ced,
+    type: 3}
   timerObject: {fileID: 1455171023}
   currentTeam: 0
   currentCharacter: 0
