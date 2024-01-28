@@ -52,13 +52,13 @@ public class Character : MonoBehaviour {
         if( alive)
         {
             alive = false;
-            manager.characterDies(teamNumber, characterNumber);
             if (body != null)
             {
                 transform.position = new Vector2(characterNumber + teamNumber * 4, 20);
                 body.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
                 body.isKinematic = true;
             }
+            manager.characterDies(teamNumber, characterNumber);
         }
     }
 

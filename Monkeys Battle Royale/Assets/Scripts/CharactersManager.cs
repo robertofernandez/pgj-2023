@@ -10,6 +10,8 @@ public class CharactersManager : MonoBehaviour {
     public GameObject simpleMonkey;
     public GameObject banana;
 
+    public GameObject halo;
+
     public GameObject batProjectile;
     public GameObject timerObject;
     private Transform currentCharacterTransform;
@@ -88,6 +90,9 @@ public class CharactersManager : MonoBehaviour {
 
     public void characterDies(int teamNumber, int characterNumber)
     {
+        Transform t = teamsMembersTransforms[teamNumber, characterNumber];
+        instantiateHalo(t.position.x, t.position.y + 0.9f);
+
         aliveCount[teamNumber]--;
         if(aliveCount[teamNumber] < 1)
         {
@@ -136,6 +141,14 @@ public class CharactersManager : MonoBehaviour {
         GameObject instantiatedPrefab = Instantiate(banana, position, rotation);
         return instantiatedPrefab;
     }
+
+    public GameObject instantiateHalo(float x, float y) {
+        Vector3 position = new Vector3(x, y, 0);
+        Quaternion rotation = Quaternion.identity;
+        GameObject instantiatedPrefab = Instantiate(halo, position, rotation);
+        return instantiatedPrefab;
+    }
+
 
     public GameObject instantiateBatProjectile(float x, float y) {
         Vector3 position = new Vector3(x, y, 0);
