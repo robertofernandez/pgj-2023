@@ -113,7 +113,7 @@ public class CharactersManager : MonoBehaviour {
         }
     }
 
-    public void OnTimerEnd()
+    void OnTimerEnd()
     {
         if(status == "game over")
         {
