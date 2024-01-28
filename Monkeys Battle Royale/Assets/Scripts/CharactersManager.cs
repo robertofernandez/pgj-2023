@@ -1,7 +1,10 @@
+using RavingBots.Water2D;
 using UnityEngine;
 
 public class CharactersManager : MonoBehaviour {
-    
+
+    public GameObject water;
+
     public int MAX_POWER = 400;
 
     public float MAX_BANANA_SPEED = 16;
@@ -87,6 +90,14 @@ public class CharactersManager : MonoBehaviour {
         status= "holding";
         power = 1;
         weaponsLocked = false;
+        riseWaterLevel();
+    }
+
+    private void riseWaterLevel()
+    {
+        Vector3 currentPosition = water.transform.position;
+        currentPosition.y += 0.5f;
+        water.transform.position = currentPosition;
     }
     
     public GameObject instantiateSimpleMonkey(float x, float y) {
@@ -145,10 +156,7 @@ public class CharactersManager : MonoBehaviour {
         {
             if(!characterChanged)
             {
-                characterChanged = true;
-                characters[currentTeam, currentCharacter].setCurrent(false);
-                currentCharacter = (currentCharacter + 1) % charactersAmount;
-                characters[currentTeam, currentCharacter].setCurrent(true);
+                changeCharacter();
             } else
             {
                 characterChanged = false;
@@ -203,6 +211,14 @@ public class CharactersManager : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void changeCharacter()
+    {
+        characterChanged = true;
+        characters[currentTeam, currentCharacter].setCurrent(false);
+        currentCharacter = (currentCharacter + 1) % charactersAmount;
+        characters[currentTeam, currentCharacter].setCurrent(true);
     }
 
     private void bananaAction()

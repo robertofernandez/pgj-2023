@@ -49,23 +49,22 @@ namespace RavingBots.Water2D
 
 		public void OnTriggerEnter2D(Collider2D other)
 		{
-
-			if (other.gameObject.CompareTag("Player"))
-			{
-				Destroy(other.gameObject);
-				characterManager.GetComponent<CharactersManager>().OnTimerEnd();
+            if (other.gameObject.CompareTag("Player"))
+            {
+                characterManager.GetComponent<CharactersManager>().changeCharacter();
+                characterManager.GetComponent<CharactersManager>().OnTimerEnd();
+                Destroy(other.gameObject);
+				//other.gameObject.SetActive(false);
 
             }
             var rigidbody = other.transform.parent.GetComponent<Rigidbody2D>();
 			var power = SplashFXPowerScale * Vector2.Dot(rigidbody.velocity, Vector2.down) * rigidbody.mass;
-
 	
 			var splash = _splashCache[_splash];
 			splash.transform.position = new Vector2(other.bounds.center.x, other.bounds.min.y - SplashFXOffset);
 			splash.Play(power, SplashFXSounds[Random.Range(0, SplashFXSounds.Length)], power * SplashFXPowerToVolume, SplashFXPowerToPitch / power);
 
 			_splash = (_splash + 1) % _splashCache.Length;
-
 
         }
 	}
