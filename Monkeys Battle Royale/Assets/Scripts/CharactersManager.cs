@@ -4,7 +4,7 @@ public class CharactersManager : MonoBehaviour {
     
     public int MAX_POWER = 400;
 
-    public float MAX_BANANA_SPEED = 6;
+    public float MAX_BANANA_SPEED = 16;
 
     public GameObject powerBarUI;
     public GameObject simpleMonkey;
@@ -26,9 +26,11 @@ public class CharactersManager : MonoBehaviour {
 
     private Timer timerElement;
 
-    private int currentBananasAmunition = 1;
+    public int currentBananasAmunition = 1;
 
-    public string status= "holding";
+    public bool reloadInTurn = false;
+
+    public string status = "holding";
 
     public int power = 1;
 
@@ -135,6 +137,10 @@ public class CharactersManager : MonoBehaviour {
                     if (power > MAX_POWER)
                     {
                         power = MAX_POWER;
+                        powerBarUIAnim.speed = 0f;
+                    } else
+                    {
+                        powerBarUIAnim.speed = 1f;
                     }
                 }
             } else
@@ -143,16 +149,57 @@ public class CharactersManager : MonoBehaviour {
                 {
                     powerBarUI.SetActive(false);
                     currentBananasAmunition--;
-        float bananaX = getCurrentCharacterTransform().position.x + 0.2f;
-        float bananaY = getCurrentCharacterTransform().position.y + 0.2f;
+                    float centerX = getCurrentCharacterTransform().position.x;
+                    float centerY = getCurrentCharacterTransform().position.y;
+                    Vector3 mousePosition = Input.mousePosition;
+                    Vector2 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
-        float bananaSpeed = MAX_BANANA_SPEED * power / MAX_POWER;
+                    float distanceX = worldMousePosition.x - centerX;
+                    float distanceY = worldMousePosition.y - centerY;
 
-        Debug.Log("Power: " + power + "Dropping banana with " + bananaSpeed + " speed at " + bananaX + ", " + bananaY);
-        GameObject bananaObject = instantiateBanana(bananaX, bananaY);
-        Banana banana = bananaObject.GetComponent<Banana>();
-        banana.initialSpeed = bananaSpeed;
-        status = "fired";
+                    Debug.Log("player x: " + centerX + "; mouse x: " + worldMousePosition.x);
+                    Debug.Log("player y: " + centerY + "; mouse y: " + worldMousePosition.y);
+
+                    if(distanceX == 0 && distanceY == 0)
+                    {
+                        distanceX = 0.1f;
+                    }
+
+                    Vector2 normalizedDistanceVector = new Vector2(distanceX, distanceY);
+
+                    Debug.Log("distance: " + normalizedDistanceVector);
+
+                    normalizedDistanceVector.Normalize();
+
+                    Debug.Log("normalized distance: " + normalizedDistanceVector);
+
+                    float bananaDistance = distanceX;
+                    if(distanceX < 0)
+                    {
+                        bananaDistance = -0.2f;
+                    } else
+                    {
+                        bananaDistance = 0.2f;
+                    }
+
+                    float bananaX = getCurrentCharacterTransform().position.x + bananaDistance;
+                    float bananaY = getCurrentCharacterTransform().position.y + 0.2f;
+
+                    float bananaSpeed = MAX_BANANA_SPEED * power / MAX_POWER;
+
+                    Debug.Log("Power: " + power + ". Dropping banana with " + bananaSpeed + " speed at " + bananaX + ", " + bananaY);
+                    GameObject bananaObject = instantiateBanana(bananaX, bananaY);
+                    Banana banana = bananaObject.GetComponent<Banana>();
+                    banana.initialSpeed = bananaSpeed;
+                    banana.normalizedDirection = normalizedDistanceVector;
+                    if(reloadInTurn)
+                    {
+                        status = "holding";
+                    } else
+                    {
+                        status = "fired";
+                    }
+                    
                     //characters[(currentTeam + 1) % 2, currentCharacter].getHit(6, -1);
                 }
             }
