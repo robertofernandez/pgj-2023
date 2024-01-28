@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6e9a2ec3691dd47b09db57dd6e3631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level1: Assets/Scenes/Moji/game_moji.unity
+  level1: Scenes/Game
 --- !u!850595691 &404376583
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -934,7 +934,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Assets/Scenes/Moji/game_moji.unity
+          m_StringArgument: Assets/Scenes/game.unity
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1065071618
