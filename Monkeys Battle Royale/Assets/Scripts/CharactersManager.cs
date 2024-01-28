@@ -135,6 +135,10 @@ public class CharactersManager : MonoBehaviour {
                     if (power > MAX_POWER)
                     {
                         power = MAX_POWER;
+                        powerBarUIAnim.speed = 0f;
+                    } else
+                    {
+                        powerBarUIAnim.speed = 1f;
                     }
                 }
             } else
