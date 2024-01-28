@@ -6,6 +6,7 @@ public class CharactersManager : MonoBehaviour {
 
     public float MAX_BANANA_SPEED = 6;
 
+    public GameObject powerBarUI;
     public GameObject simpleMonkey;
     public GameObject banana;
     public GameObject timerObject;
@@ -124,9 +125,12 @@ public class CharactersManager : MonoBehaviour {
                 if(status == "holding") 
                 {
                     status = "charging";
+                    powerBarUI.SetActive(true);           
                     power = 1;
                 } else if (status == "charging")
                 {
+                    Animator powerBarUIAnim = powerBarUI.GetComponent<Animator>();
+                    powerBarUIAnim.Play("PowerBarUI");
                     power++;
                     if (power > MAX_POWER)
                     {
@@ -137,17 +141,18 @@ public class CharactersManager : MonoBehaviour {
             {
                 if (status == "charging")
                 {
+                    powerBarUI.SetActive(false);
                     currentBananasAmunition--;
-                    float bananaX = getCurrentCharacterTransform().position.x + 0.2f;
-                    float bananaY = getCurrentCharacterTransform().position.y + 0.2f;
+        float bananaX = getCurrentCharacterTransform().position.x + 0.2f;
+        float bananaY = getCurrentCharacterTransform().position.y + 0.2f;
 
-                    float bananaSpeed = MAX_BANANA_SPEED * power / MAX_POWER;
+        float bananaSpeed = MAX_BANANA_SPEED * power / MAX_POWER;
 
-                    Debug.Log("Power: " + power + "Dropping banana with " + bananaSpeed + " speed at " + bananaX + ", " + bananaY);
-                    GameObject bananaObject = instantiateBanana(bananaX, bananaY);
-                    Banana banana = bananaObject.GetComponent<Banana>();
-                    banana.initialSpeed = bananaSpeed;
-                    status = "fired";
+        Debug.Log("Power: " + power + "Dropping banana with " + bananaSpeed + " speed at " + bananaX + ", " + bananaY);
+        GameObject bananaObject = instantiateBanana(bananaX, bananaY);
+        Banana banana = bananaObject.GetComponent<Banana>();
+        banana.initialSpeed = bananaSpeed;
+        status = "fired";
                     //characters[(currentTeam + 1) % 2, currentCharacter].getHit(6, -1);
                 }
             }
