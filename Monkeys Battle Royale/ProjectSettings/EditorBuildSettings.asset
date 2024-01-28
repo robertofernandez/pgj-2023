@@ -8,13 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/splash.unity
     guid: d97d4657a0766b54cb7db1a88e321a19
-  - enabled: 0
-    path: Assets/Scenes/Roberto/game.unity
-    guid: 498768c1e1263084bbfab905c90af490
-  - enabled: 0
-    path: Assets/Scenes/Moji/game_moji.unity
-    guid: 9a536cd4c2002ad4d9a47e0f83416817
   - enabled: 1
     path: Assets/Scenes/game.unity
-    guid: cf71149ed7855414fa4dbb80055f80ae
+    guid: ec63b459a5bf50b4f86499da08eaf741
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 0373bf124ab36c74bb3932bd85bb6985
   m_configObjects: {}

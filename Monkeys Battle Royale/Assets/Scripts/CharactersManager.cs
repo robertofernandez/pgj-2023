@@ -1,6 +1,7 @@
 using RavingBots.Water2D;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharactersManager : MonoBehaviour {
 
@@ -102,6 +103,7 @@ public class CharactersManager : MonoBehaviour {
         if(aliveCount[teamNumber] < 1)
         {
             Debug.Log("Team " + teamNumber + " lost");
+            SceneManager.LoadScene("GameOver");
             status = "game over";
             return;
         }
